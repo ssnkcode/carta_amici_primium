@@ -1,0 +1,139 @@
+footer {
+	padding: 60px 0 20px;
+	background: var(--dark-color-divider);
+	color: var(--color-light);
+	position: relative;
+	overflow: hidden;
+}
+
+footer > div {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	position: relative;
+	z-index: 2;
+}
+
+footer .content {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 40px;
+	align-items: start;
+	margin-bottom: 40px;
+}
+
+footer .container-logo {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	margin-bottom: 25px;
+}
+
+footer .container-logo img {
+	width: 150px;
+    height: 70px;
+	filter: brightness(0) invert(1);
+}
+
+footer .container-logo span {
+	font-size: 28px;
+	font-weight: 700;
+	color: var(--color-primary);
+}
+
+footer .content ul {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	margin-top: 10px;
+	padding: 0;
+}
+
+footer .content ul li {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 8px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer .content ul li:last-child {
+	border-bottom: none;
+}
+
+footer .content ul li i {
+	color: var(--color-primary);
+	font-size: 18px;
+	width: 24px;
+	text-align: center;
+}
+
+footer .content ul li span {
+	font-size: 16px;
+	color: var(--text-color);
+	line-height: 1.6;
+}
+
+footer .container-social-copyright {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 20px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer .container-social-copyright ul {
+	display: flex;
+	gap: 15px;
+	margin: 0;
+	padding: 0;
+}
+
+footer .container-social-copyright ul li {
+	list-style: none;
+}
+
+footer .container-social-copyright ul li a {
+	text-decoration: none;
+	color: var(--color-light);
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+footer .container-social-copyright ul li a:hover {
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
+	transform: translateY(-3px);
+}
+
+footer .container-social-copyright p {
+	font-size: 14px;
+	color: var(--text-color);
+	opacity: 0.8;
+	margin: 0;
+}
+
+@media (max-width: 768px) {
+	footer .content {
+		grid-template-columns: 1fr;
+		gap: 30px;
+	}
+
+	footer .container-social-copyright {
+		flex-direction: column;
+		gap: 20px;
+		text-align: center;
+	}
+
+	footer .container-social-copyright p {
+		order: 2;
+	}
+}

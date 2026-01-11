@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comidas AMICI</title>
+    <link rel="icon" href="./assets/logo/logo_redondeado.png" type="image/svg+xml" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/css_form/form-whats.css">
+    <link rel="stylesheet" href="./css/css_map/header.css" />
+    <link rel="stylesheet" href="./css/whatsapp-float.css">
+</head>
+<body>
+    <header>
+        <div class="container header-expand">
+            <div class="container-logo">
+                <span> Comidas AMICI </span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html#menu_amici"> VER MENU </a>
+                    </li>
+                    <li>
+                        <a href='index_form_ubicación.html'> CONTACTO </a>
+                    </li>
+                    <li>
+                        <a href='map.html'> UBICACION </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="btn-toggle">
+                <i class="fa-solid fa-bars active"></i>
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+	</header>
+
+    <div class="container">
+        <div class="header">
+            <h1><i class="fab fa-whatsapp"></i> Formulario de Pedidos <i class="fas fa-map-marker-alt"></i></h1>
+            <p>Completa el formulario y envía tu pedido con ubicación directamente por WhatsApp</p>
+        </div>
+        
+        <div class="contact-info">
+            <div class="whatsapp-number">
+                <i class="fab fa-whatsapp"></i>
+                <span>Número de WhatsApp: +54 3541-387884</span>
+            </div>
+            <div class="location-toggle">
+                <span>Ubicación automática:</span>
+                <button type="button" class="toggle-btn" id="locationToggle">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Obtener ubicación actual</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form id="pedidoForm">
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Información Personal</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombre" class="required">Nombre Completo</label>
+                            <div class="input-container">
+                                <input type="text" id="nombre" placeholder="Ingresa tu nombre completo" required>
+                                <i class="fas fa-user icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono" class="required">Número de Teléfono</label>
+                            <div class="input-container">
+                                <input type="tel" id="telefono" placeholder="Ej: +54 351 123-4567" required>
+                                <i class="fas fa-phone icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Información de Ubicación</h2>
+                    <div class="location-section">
+                        <div class="form-group">
+                            <button type="button" class="auto-location-btn" id="autoLocationBtn">
+                                <i class="fas fa-location-arrow"></i>
+                                Usar mi ubicación actual automáticamente
+                            </button>
+                            <div class="location-message" id="locationMessage">
+                                <i class="fas fa-info-circle"></i>
+                                <span id="locationText">Ubicación no detectada aún</span>
+                            </div>
+                        </div>
+                        
+                        <div class="location-grid">
+                            <div class="form-group">
+                                <label for="calle">Calle</label>
+                                <input type="text" id="calle" placeholder="Nombre de la calle (opcional)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="altura">Altura/Número</label>
+                                <input type="text" id="altura" placeholder="Número de calle (opcional)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="barrio">Barrio</label>
+                                <input type="text" id="barrio" placeholder="Barrio/Localidad (opcional)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" id="ciudad" placeholder="Ciudad (opcional)">
+                            </div>
+                        </div>
+                        
+                        <div class="coordinates">
+                            <div class="form-group">
+                                <label for="latitud">Latitud</label>
+                                <input type="text" id="latitud" placeholder="Se obtendrá automáticamente" readonly>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="longitud">Longitud</label>
+                                <input type="text" id="longitud" placeholder="Se obtendrá automáticamente" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="location-info">
+                            <p><i class="fas fa-info-circle"></i> <strong>Nota:</strong> Si utilizas la ubicación automática, los campos de dirección son opcionales. Las coordenadas serán suficientes para crear el enlace de ubicación.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2 class="section-title"><i class="fas fa-shopping-basket"></i> Detalle del Pedido</h2>
+                    <div class="form-group">
+                        <label for="pedido" class="required">Descripción del Pedido</label>
+                        <textarea id="pedido" placeholder="Describe tu pedido con todos los detalles (productos, cantidades, especificaciones, etc.)" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <button type="submit" class="submit-btn" id="enviarBtn">
+                        <i class="fab fa-whatsapp"></i> Enviar Pedido con Ubicación por WhatsApp
+                    </button>
+                </div>
+            </form>
+            
+            <div class="loading" id="loadingMessage">
+                <i class="fas fa-spinner fa-spin"></i> Procesando información y creando enlace de ubicación...
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> 
+                <h3>¡Formulario completado correctamente!</h3>
+                <p>Serás redirigido a WhatsApp en unos segundos con tu pedido y enlace de ubicación.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><i class="fas fa-info-circle"></i> Los datos se enviarán directamente por WhatsApp al número +54 3541-387884</p>
+            <p>Incluyendo un enlace de Google Maps con la ubicación proporcionada</p>
+        </div>
+    </div>
+
+    <div class="whatsapp-float" id="whatsappFloat">
+        <a href="https://wa.me/543541387884" target="_blank" class="whatsapp-link">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">¡Haz tu pedido por WhatsApp!</span>
+            <span class="whatsapp-number">3541-387884</span>
+        </a>
+    </div>
+
+    <script src="./js/js_form/form-whats.js"></script>
+</body>
+</html>

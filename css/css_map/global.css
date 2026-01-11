@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+	--color-primary: #a6a182;
+	--color-secondary: #1f2120;
+	--text-color: #aeb0b4;
+	--color-light: #fff;
+	--color-divider: #ffffff1a;
+	--dark-color-divider: #0e110d;
+
+	/* Fuentes */
+	--default-font: 'Hanken Grotesk', serif;
+
+	/* Breakpoints */
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--default-font);
+	color: var(--text-color);
+}
+
+input,
+button,
+select,
+textarea {
+	font-family: var(--default-font);
+}
+
+input {
+	border: none;
+	outline: none;
+}
+
+/* ********************************** */
+/*                UTILS               */
+/* ********************************** */
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.btn {
+	text-decoration: none;
+	padding: 17px 25px;
+	text-transform: capitalize;
+	border-radius: 9999px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 700;
+	font-size: 16px;
+	transition: background-color 0.4s;
+	cursor: pointer;
+	border: none;
+
+	&.btn-primary {
+		background-color: var(--color-primary);
+		color: var(--color-light);
+		position: relative;
+
+		&:hover {
+			background-color: var(--color-light);
+			color: #000;
+		}
+	}
+
+	&.btn-secondary {
+		background-color: var(--color-light);
+		color: #000;
+
+		&:hover {
+			background-color: var(--color-primary);
+			color: var(--color-light);
+		}
+	}
+
+	@media (max-width: 768px) {
+		font-size: 14px;
+	}
+}
+
+.background-dark-1 {
+	background-color: var(--dark-color-divider);
+}
+
+.background-dark-2 {
+	background-color: var(--color-secondary);
+}
+
+.container-logo {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	text-decoration: none;
+
+	img {
+		width: 50px;
+		height: 50px;
+		object-fit: cover;
+	}
+
+	span {
+		color: var(--color-light);
+		font-size: 26px;
+		font-weight: 600;
+	}
+
+	@media (max-width: 768px) {
+		img {
+			width: 40px;
+			height: 40px;
+		}
+
+		span {
+			font-size: 22px;
+		}
+	}
+}
+
+.background-container-hero {
+	background-image: url(../../assets/images_map/home/hero-bg.jpg);
+	background-size: cover;
+	background-position: center;
+	height: 65vh;
+	background-attachment: fixed; /* Efecto Parallax */
+	position: relative;
+
+	display: flex;
+	align-items: center;
+	z-index: 1;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(10, 10, 10, 0.85);
+		z-index: -1;
+	}
+
+	& > div {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 10px;
+		margin-top: 50px;
+
+		h1 {
+			color: var(--color-light);
+			font-size: 62px;
+			text-align: center;
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
+
+		p {
+			font-size: 18px;
+			text-align: center;
+
+			a {
+				text-decoration: none;
+				color: var(--text-color);
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 992px) {
+		height: 50vh;
+
+		& > div {
+			h1 {
+				font-size: 50px;
+			}
+		}
+	}
+
+	@media (max-width: 768px) {
+		height: 40vh;
+
+		& > div {
+			h1 {
+				font-size: 30px;
+			}
+		}
+	}
+}
+
+.badge {
+	color: var(--color-primary);
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: 1px;
+	font-weight: 800;
+	display: flex;
+	align-items: center;
+
+	&::before {
+		content: '';
+		display: block;
+		width: 8px;
+		height: 8px;
+		border-radius: 999px;
+		background: var(--color-primary);
+		margin-right: 10px;
+	}
+}
+
+.title {
+	font-size: 42px;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	font-weight: 800;
+	color: var(--color-light);
+
+	span {
+		color: var(--color-primary);
+	}
+
+	@media (max-width: 992px) {
+		font-size: 34px;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 24px;
+	}
+}
+
+section {
+	padding: 100px 0;
+
+	@media (max-width: 992px) {
+		padding: 50px 15px;
+	}
+}

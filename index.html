@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Comidas AMICI</title>
+		<link rel="icon" href="./assets/logo/logo_redondeado.png" type="image/svg+xml" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+			integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+        <link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="./css/whatsapp-float.css">
+	</head>
+	<body>
+		<header>
+			<div class="container header-expand">
+				<div class="container-logo">
+					<img src="./assets/logo/logo_redondeado.png" alt="Logo" />
+					<span> Comidas AMICI </span>
+				</div>
+
+				<nav>
+					<ul>
+						<li>
+							<a href="#menu_amici"> VER MENU </a>
+						</li>
+						<li>
+							<a href='index_form_ubicación.html'> CONTACTO </a>
+						</li>
+						<li>
+							<a href='map.html'> UBICACION </a>
+						</li>
+					</ul>
+				</nav>
+
+				<button class="btn-toggle">
+					<i class="fa-solid fa-bars active"></i>
+					<i class="fa-solid fa-xmark"></i>
+			</div>
+		</header>
+
+		<section class="hero-banner">
+			<div class="container">
+				<div class="content">
+					<span class="badge"> Arte culinario </span>
+					<h1>
+						La gastronomía se redefine con
+						<span>cada bocado</span>
+					</h1>
+					<p>
+						Sumérgete en una experiencia gastronómica sin igual, donde
+						cada plato es una obra maestra de sabor, elaborado con
+						cuidado y precisión, a partir de los ingredientes más
+						frescos.
+					</p>
+					<div class="container-button">
+						<a class='btn btn-primary' href='index_form_ubicación.html'>Realiza tu pedido
+							<i class="fa-solid fa-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+				<div class="container-images">
+					<img
+						src="images/home/hero-banner-main.jpg"
+						class="main-image"
+						alt="Hero Banner"
+					/>
+					<img
+						src="images/home/hero-banner-1.jpg"
+						class="img-banner-1"
+						alt="Hero Banner 1"
+					/>
+					<img
+						src="images/home/hero-banner-2.jpg"
+						class="img-banner-2"
+						alt="Hero Banner 1"
+					/>
+				</div>
+			</div>
+		</section>
+		<a href="./assets/carta/carta_amici_ultima_Ale.pdf" class="download-btn" target="_blank">
+            <i class="fas fa-eye"></i> Ver Carta Completa
+        </a>
+
+        <section class="section-menu" id="menu-section">
+            <div class="container">
+                <div class="content">
+                    <span class="badge">Nuestra Carta</span>
+                    <h2>Sabores que enamoran</h2>
+                </div>
+        
+                <div class="container-tabs" id="menu_amici">
+                    <button data-category="all" class="active">Todo</button>
+                    <button data-category="Pizzas">Pizzas</button>
+                    <button data-category="Hamburguesas">Hamburguesas</button>
+                    <button data-category="Sandwiches">Sándwiches</button>
+                    <button data-category="Empanadas">Empanadas</button>
+					<button data-category="Papas">Papas</button>
+                </div>
+        
+                <div class="container-dishes active" id="products-container"></div>
+            </div>
+        </section>
+
+		<footer class="background-dark-1">
+			<div class="container">
+				<div class="content">
+					<div class="container-logo">
+						<img src="./assets/logo/logo.png" alt="Logo" />
+						<span> Comidas AMICI </span>
+					</div>
+
+					<ul>
+						<li>
+							<i class="fa-solid fa-location-dot"></i>
+							<span>Av. Roque Sáenz Peña 47, Bialet Massé</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-phone"></i>
+							<span>3541-387884</span>
+						</li>
+					</ul>
+				</div>
+
+				<div class="container-social-copyright">
+					
+					<p>&copy; 2025 SsnkCode. Todos los derechos reservados. <span> <a href="https://wa.me/543541682310" style="color: white;">3541682310</a></span></p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Botón flotante de WhatsApp -->
+		<div class="whatsapp-float" id="whatsappFloat">
+			<a href="https://wa.me/543541387884" target="_blank" class="whatsapp-link">
+				<i class="fab fa-whatsapp"></i>
+				<span class="whatsapp-tooltip">¡Haz tu pedido por WhatsApp!</span>
+				<span class="whatsapp-number">3541-387884</span>
+			</a>
+		</div>
+
+		<script src="js/partials.js"></script>
+		<script src="js/home.js"></script>
+	</body>
+</html>
