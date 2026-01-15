@@ -37,6 +37,8 @@
             font-family: var(--default-font);
             color: var(--text-color);
             line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         
         .container {
@@ -55,6 +57,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
         
         .header-expand {
@@ -525,15 +528,20 @@
             border-bottom: none;
         }
         
-        /* LOCATION MESSAGE */
+        /* LOCATION MESSAGE - ESTILOS MEJORADOS */
         .location-message {
-            margin-top: 10px;
-            padding: 15px;
+            margin: 10px auto 30px auto;
+            padding: 15px 20px;
             background: rgba(166, 161, 130, 0.1);
-            border-radius: 8px;
+            border-radius: 12px;
             display: none;
             text-align: center;
             font-size: 14px;
+            max-width: 800px;
+            border-left: 4px solid var(--color-primary);
+            animation: fadeIn 0.3s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .location-message.show {
@@ -558,6 +566,11 @@
             border-left: 4px solid #3498db;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         /* MODAL PARA MOSTRAR RECORRIDO */
         .route-modal {
             display: none;
@@ -566,10 +579,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
         
         .route-modal.active {
@@ -579,11 +593,12 @@
         .modal-content {
             background: var(--color-secondary);
             border-radius: 15px;
-            width: 90%;
+            width: 95%;
             max-width: 900px;
-            max-height: 90vh;
+            max-height: 95vh;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
         
         .modal-header {
@@ -607,21 +622,34 @@
             background: none;
             border: none;
             color: var(--color-light);
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
             padding: 5px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .close-modal:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .modal-body {
-            padding: 20px;
+            padding: 25px;
+            overflow-y: auto;
         }
         
         .route-map-container {
             width: 100%;
-            height: 500px;
+            height: 450px;
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
         
         .route-map-container iframe {
@@ -639,16 +667,23 @@
         
         .route-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .route-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
         }
         
         .route-item i {
             color: var(--color-primary);
-            font-size: 20px;
+            font-size: 22px;
+            width: 30px;
         }
         
         .route-item div {
@@ -659,6 +694,8 @@
             font-size: 12px;
             color: var(--text-color);
             margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .route-item .value {
@@ -670,20 +707,24 @@
         .modal-actions {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 30px;
             justify-content: center;
+            flex-wrap: wrap;
         }
         
         .modal-btn {
-            padding: 12px 25px;
+            padding: 14px 30px;
             border-radius: 50px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.3s ease;
+            font-size: 15px;
+            min-width: 200px;
+            justify-content: center;
         }
         
         .modal-btn-primary {
@@ -691,15 +732,23 @@
             color: var(--color-light);
         }
         
-        .modal-btn-secondary {
-            background: var(--color-secondary);
-            color: var(--color-light);
-            border: 1px solid var(--color-primary);
+        .modal-btn-primary:hover {
+            background: var(--color-light);
+            color: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(166, 161, 130, 0.3);
         }
         
-        .modal-btn:hover {
+        .modal-btn-secondary {
+            background: transparent;
+            color: var(--color-light);
+            border: 2px solid var(--color-primary);
+        }
+        
+        .modal-btn-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-light);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         /* LOADING SPINNER */
@@ -711,21 +760,185 @@
             border-radius: 50%;
             border-top-color: var(--color-primary);
             animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
+            margin-right: 10px;
+            vertical-align: middle;
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
+        /* LOADER PARA EL MAPA */
+        .map-loader {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .map-loader.active {
+            display: block;
+        }
+        
+        /* ESTILOS PARA PANTALLAS MUY PEQUEÑAS (290px - 400px) */
+        @media (max-width: 400px) {
+            .background-container-hero h1 {
+                font-size: 24px;
+            }
+            
+            .background-container-hero p {
+                font-size: 14px;
+            }
+            
+            .map-btn {
+                padding: 10px 15px;
+                font-size: 13px;
+                gap: 8px;
+            }
+            
+            .map-btn i {
+                font-size: 16px;
+            }
+            
+            .modal-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-width: 160px;
+            }
+            
+            .route-map-container {
+                height: 350px;
+            }
+            
+            .route-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ESTILOS PARA PANTALLAS EXTRA GRANDES */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1300px;
+            }
+            
+            .background-container-hero h1 {
+                font-size: 72px;
+            }
+            
+            .container-map iframe {
+                height: 600px;
+            }
+        }
+        
+        /* MEJORAS DE ACCESIBILIDAD */
+        .map-btn:focus,
+        .modal-btn:focus,
+        .close-modal:focus {
+            outline: 2px solid #4dabf7;
+            outline-offset: 2px;
+        }
+        
+        /* CORRECCIÓN PARA BOOTSTRAP NAVBAR EN DISPOSITIVOS PEQUEÑOS */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                text-align: center;
+                padding: 20px 0;
+            }
+            
+            .navbar-nav .nav-item {
+                margin: 10px 0;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 12px 20px !important;
+                font-size: 16px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                border-radius: 8px;
+                transition: all 0.3s;
+            }
+            
+            .navbar-nav .nav-link:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .navbar-toggler {
+                padding: 6px 10px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+            }
+        }
+        
+        /* CORRECCIÓN DE ESPACIADO PARA MÓVILES */
+        @media (max-width: 768px) {
+            main {
+                padding: 50px 0;
+            }
+            
+            .location-info {
+                margin: 30px 0;
+                padding: 25px;
+            }
+            
+            .street-view-container {
+                margin: 30px 0;
+            }
+            
+            .map-controls {
+                gap: 15px;
+                margin: 25px 0;
+            }
+        }
+        
+        /* CORRECCIÓN PARA PANTALLAS DE ALTA DENSIDAD */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .map-btn,
+            .modal-btn {
+                font-weight: 500;
+            }
+        }
+        
+        /* PREVENIR ZOOM EN IOS AL TOCAR INPUTS */
+        @media screen and (max-width: 768px) {
+            input,
+            select,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+        
+        /* MEJORA DE RENDIMIENTO PARA ANIMACIONES */
+        .map-btn,
+        .modal-btn,
+        .route-item {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        
+        /* CORRECCIÓN PARA FIREFOX */
+        @-moz-document url-prefix() {
+            .map-btn,
+            .modal-btn {
+                transition: all 0.2s ease;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- HEADER -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-3" style="background-color: rgba(33, 37, 41, 0.4); backdrop-filter: blur(2px);">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-3" style="background-color: rgba(33, 37, 41, 0.95); backdrop-filter: blur(10px);">
         <div class="container">
             <!-- Logo/Brand -->
             <a class="navbar-brand fw-bold text-white" href="index.html">
-                <span>Comidas AMICI</span>
+                <img src="./assets/logo/logo_redondeado.png" alt="Logo AMICI" style="height: 40px; width: auto; margin-right: 10px;">
+                <span style="font-size: 1.4rem;">Comidas AMICI</span>
             </a>
             
             <!-- Botón hamburguesa (responsive) -->
@@ -738,17 +951,17 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="index.html#menu_amici">
-                            <i class="fa-solid fa-utensils me-1"></i> VER MENÚ
+                            <i class="fa-solid fa-utensils me-2"></i> VER MENÚ
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="index_form_ubicación.html">
-                            <i class="fa-solid fa-envelope me-1"></i> CONTACTO
+                            <i class="fa-solid fa-envelope me-2"></i> CONTACTO
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="map.html">
-                            <i class="fa-solid fa-location-dot me-1"></i> UBICACIÓN
+                            <i class="fa-solid fa-location-dot me-2"></i> UBICACIÓN
                         </a>
                     </li>
                 </ul>
@@ -761,7 +974,9 @@
         <div class="container">
             <h1>Nuestra Ubicación</h1>
             <p>
-                <a href='index.html'>Inicio</a> / <span>Ubicación</span>
+                <a href='index.html' style="color: var(--color-primary); text-decoration: none;">Inicio</a> 
+                <span style="color: var(--text-color);"> / </span>
+                <span style="color: var(--color-light); font-weight: 500;">Ubicación</span>
             </p>
         </div>
     </section>
@@ -770,11 +985,16 @@
     <main class="container">
         <!-- MAPA EMBEBIDO -->
         <section class="container-map">
+            <div class="map-loader" id="mapLoader">
+                <div class="spinner"></div>
+            </div>
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6817.6959124335435!2d-64.46668851069397!3d-31.307947198104166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDE4JzI2LjIiUyA2NMKwMjcnNDguMCJX!5e0!3m2!1ses!2sar!4v1765820066938!5m2!1ses!2sar" 
                 allowfullscreen="" 
                 loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
+                referrerpolicy="no-referrer-when-downgrade"
+                onload="document.getElementById('mapLoader').classList.remove('active')"
+                onloadstart="document.getElementById('mapLoader').classList.add('active')">
             </iframe>
         </section>
 
@@ -850,7 +1070,8 @@
                 <p>Así se ve nuestro local desde la calle. Haz clic en el botón "Ver en 3D" para explorar en 360°</p>
                 <a href="https://www.google.com/maps/place/AMICI+pizza+y+lomos/@-31.3074574,-64.4633237,3a,75y,51.42h,93.05t/data=!3m7!1e1!3m5!1sS7tINPoBRRVwuR9i01qZmw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-3.051350058122196%26panoid%3DS7tINPoBRRVwuR9i01qZmw%26yaw%3D51.421320818227734!7i16384!8i8192!4m15!1m8!3m7!1s0x942d6550e7718de5:0x101de55630bce728!2sAMICI+pizza+y+lomos!8m2!3d-31.3073007!4d-64.4632021!10e1!16s%2Fg%2F11s_z0gg11!3m5!1s0x942d6550e7718de5:0x101de55630bce728!8m2!3d-31.3073007!4d-64.4632021!16s%2Fg%2F11s_z0gg11?entry=ttu&g_ep=EgoyMDI2MDEwNy.0IKXMDSoASAFQAw%3D%3D" 
                    target="_blank" 
-                   class="map-btn">
+                   class="map-btn" 
+                   style="background: rgba(255, 255, 255, 0.9); color: #000; font-weight: 700;">
                     <i class="fas fa-external-link-alt"></i>
                     Abrir Vista 360° Completa
                 </a>
@@ -893,7 +1114,7 @@
         <div class="container">
             <div class="content">
                 <div class="container-logo">
-                    <img src="./assets/logo/logo.png" alt="Logo AMICI" />
+                    <img src="./assets/logo/logo.png" alt="Logo AMICI" style="width: 150px; height: auto;" />
                     <span>Comidas AMICI</span>
                 </div>
 
@@ -911,18 +1132,17 @@
 
             <div class="container-social-copyright">
                 <p>&copy; 2025 SsnkCode. Todos los derechos reservados. 
-                   <span><a href="https://wa.me/543541682310">3541682310</a></span>
+                   <span><a href="https://wa.me/543541682310" style="color: var(--color-primary); text-decoration: none;">3541682310</a></span>
                 </p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="./js/navbar-scroll.js"></script>
-
-    <!-- JAVASCRIPT COMPLETO -->
+    
+    <!-- JAVASCRIPT COMPLETO Y FUNCIONAL -->
     <script>
-        // COORDENADAS DE AMICI
+        // COORDENADAS DE AMICI - DATOS REALES
         const AMICI_COORDINATES = {
             name: "AMICI Pizza y Lomos",
             lat: -31.3073007,
@@ -931,17 +1151,21 @@
             phone: "+54 3541-387884",
             whatsapp: "543541387884",
             placeId: "ChIJd7TvpI3zCpMRcWtPwXv_W-w",
-            streetViewUrl: "https://www.google.com/maps/place/AMICI+pizza+y+lomos/@-31.3074574,-64.4633237,3a,75y,51.42h,93.05t/data=!3m7!1e1!3m5!1sS7tINPoBRRVwuR9i01qZmw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-3.051350058122196%26panoid%3DS7tINPoBRRVwuR9i01qZmw%26yaw%3D51.421320818227734!7i16384!8i8192!4m15!1m8!3m7!1s0x942d6550e7718de5:0x101de55630bce728!2sAMICI+pizza+y+lomos!8m2!3d-31.3073007!4d-64.4632021!10e1!16s%2Fg%2F11s_z0gg11!3m5!1s0x942d6550e7718de5:0x101de55630bce728!8m2!3d-31.3073007!4d-64.4632021!16s%2Fg%2F11s_z0gg11?entry=ttu&g_ep=EgoyMDI2MDEwNy.0IKXMDSoASAFQAw%3D%3D"
+            streetViewUrl: "https://www.google.com/maps/place/AMICI+pizza+y+lomos/@-31.3074574,-64.4633237,3a,75y,51.42h,93.05t/data=!3m7!1e1!3m5!1sS7tINPoBRRVwuR9i01qZmw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-3.051350058122196%26panoid%3DS7tINPoBRRVwuR9i01qZmw%26yaw%3D51.421320818227734!7i16384!8i8192!4m15!1m8!3m7!1s0x942d6550e7718de5:0x101de55630bce728!2sAMICI+pizza+y+lomos!8m2!3d-31.3073007!4d-64.4632021!10e1!16s%2Fg%2F11s_z0gg11!3m5!1s0x942d6550e7718de5:0x101de55630bce728!8m2!3d-31.3073007!4d-64.4632021!16s%2Fg%2F11s_z0gg11?entry=ttu&g_ep=EgoyMDI2MDEwNy.0IKXMDSoASAFQAw%3D%3D",
+            mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6817.6959124335435!2d-64.46668851069397!3d-31.307947198104166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDE4JzI2LjIiUyA2NMKwMjcnNDguMCJX!5e0!3m2!1ses!2sar!4v1765820066938!5m2!1ses!2sar"
         };
 
         // Variables globales
         let userLocation = null;
         let currentRouteUrl = null;
+        let routeDistance = null;
+        let routeTime = null;
 
+        // Esperar a que el DOM esté completamente cargado
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM cargado - Inicializando funcionalidades...');
+            
             // Elementos del DOM
-            const menuToggle = document.getElementById('menuToggle');
-            const responsiveMenu = document.getElementById('responsiveMenu');
             const getDirectionsBtn = document.getElementById('getDirectionsBtn');
             const locationMessage = document.getElementById('locationMessage');
             const routeModal = document.getElementById('routeModal');
@@ -950,72 +1174,17 @@
             const routeInfo = document.getElementById('routeInfo');
             const openInMapsBtn = document.getElementById('openInMaps');
             const shareRouteBtn = document.getElementById('shareRoute');
+            const mapLoader = document.getElementById('mapLoader');
             
-            // TOGGLE MENU RESPONSIVE
-            menuToggle.addEventListener('click', function() {
-                responsiveMenu.classList.toggle('active');
-                const icon = menuToggle.querySelector('i');
-                if (responsiveMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
+            // Verificar que todos los elementos existen
+            if (!getDirectionsBtn) {
+                console.error('Error: Botón getDirectionsBtn no encontrado');
+                return;
+            }
             
-            // Cerrar menú al hacer clic en un enlace
-            const menuLinks = responsiveMenu.querySelectorAll('a');
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    responsiveMenu.classList.remove('active');
-                    menuToggle.querySelector('i').classList.remove('fa-times');
-                    menuToggle.querySelector('i').classList.add('fa-bars');
-                });
-            });
-            
-            // CERRAR MODAL
-            closeModal.addEventListener('click', function() {
-                routeModal.classList.remove('active');
-            });
-            
-            // Cerrar modal al hacer clic fuera
-            routeModal.addEventListener('click', function(e) {
-                if (e.target === routeModal) {
-                    routeModal.classList.remove('active');
-                }
-            });
-            
-            // ABRIR EN GOOGLE MAPS
-            openInMapsBtn.addEventListener('click', function() {
-                if (currentRouteUrl) {
-                    window.open(currentRouteUrl, '_blank');
-                }
-            });
-            
-            // COMPARTIR RUTA
-            shareRouteBtn.addEventListener('click', function() {
-                if (currentRouteUrl) {
-                    if (navigator.share) {
-                        navigator.share({
-                            title: 'Ruta a AMICI Pizza y Lomos',
-                            text: '¡Mira el recorrido para llegar a AMICI!',
-                            url: currentRouteUrl
-                        });
-                    } else {
-                        navigator.clipboard.writeText(currentRouteUrl)
-                            .then(() => {
-                                showMessage('✅ Enlace copiado al portapapeles', 'success');
-                            })
-                            .catch(() => {
-                                prompt('Copiar este enlace:', currentRouteUrl);
-                            });
-                    }
-                }
-            });
-            
-            // BOTÓN PRINCIPAL: VER RECORRIDO DESDE MI UBICACIÓN
+            // 1. BOTÓN PRINCIPAL: VER RECORRIDO DESDE MI UBICACIÓN
             getDirectionsBtn.addEventListener('click', function() {
+                console.log('Botón de direcciones clickeado');
                 const btn = this;
                 const originalText = btn.innerHTML;
                 
@@ -1026,139 +1195,130 @@
                 
                 // Verificar si el navegador soporta geolocalización
                 if (!navigator.geolocation) {
-                    showMessage('❌ Tu navegador no soporta geolocalización.', 'error');
-                    fallbackToManualRoute();
+                    console.log('Geolocalización no soportada por el navegador');
+                    showMessage('❌ Tu navegador no soporta geolocalización. Abriendo Google Maps...', 'error');
+                    openGoogleMapsWithoutOrigin();
                     btn.disabled = false;
                     btn.innerHTML = originalText;
                     return;
                 }
                 
+                // Opciones de geolocalización
+                const geoOptions = {
+                    enableHighAccuracy: true,  // Usar GPS si está disponible
+                    timeout: 15000,           // 15 segundos de timeout
+                    maximumAge: 0             // No usar caché
+                };
+                
                 // Pedir ubicación actual
                 navigator.geolocation.getCurrentPosition(
                     // ÉXITO: Obtener coordenadas del usuario
                     function(position) {
+                        console.log('Ubicación obtenida:', position.coords);
                         userLocation = {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude,
-                            accuracy: position.coords.accuracy
+                            accuracy: position.coords.accuracy,
+                            timestamp: new Date().toISOString()
                         };
                         
                         showMessage('✅ Ubicación detectada. Calculando ruta...', 'success');
                         
-                        // Calcular distancia y tiempo
-                        const distance = calculateDistance(
+                        // Calcular distancia y tiempo estimado
+                        routeDistance = calculateDistance(
                             userLocation.lat, 
                             userLocation.lng,
                             AMICI_COORDINATES.lat,
                             AMICI_COORDINATES.lng
                         );
                         
-                        // Crear URL de Google Maps con ruta visual
-                        currentRouteUrl = createRouteUrl(userLocation, AMICI_COORDINATES);
+                        // Calcular tiempo estimado (promedio 40km/h)
+                        routeTime = Math.round((routeDistance.km / 40) * 60);
+                        if (routeTime < 5) routeTime = 5; // Mínimo 5 minutos
                         
-                        // Crear iframe para mostrar el mapa con la ruta
-                        const mapUrl = createEmbeddedRouteUrl(userLocation, AMICI_COORDINATES);
-                        routeMap.src = mapUrl;
+                        // Crear URL para Google Maps
+                        currentRouteUrl = `https://www.google.com/maps/dir/?api=1` +
+                                        `&origin=${userLocation.lat},${userLocation.lng}` +
+                                        `&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}` +
+                                        `&destination_place_id=${AMICI_COORDINATES.placeId}` +
+                                        `&travelmode=driving`;
                         
-                        // Mostrar información de la ruta
-                        updateRouteInfo(distance, userLocation);
+                        // Crear URL para iframe con ruta
+                        const embedUrl = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8` +
+                                       `&origin=${userLocation.lat},${userLocation.lng}` +
+                                       `&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}` +
+                                       `&mode=driving&language=es`;
                         
-                        // Mostrar el modal con el recorrido
+                        // Mostrar modal con la ruta
+                        showRouteModal(embedUrl, routeDistance, routeTime);
+                        
+                        // Restaurar botón
                         setTimeout(() => {
-                            routeModal.classList.add('active');
                             btn.disabled = false;
                             btn.innerHTML = originalText;
-                            showMessage('✅ Ruta calculada. Mira el recorrido arriba.', 'success');
                         }, 500);
                         
-                        // Guardar en localStorage para futuras visitas
+                        // Guardar en localStorage
                         localStorage.setItem('last_user_location', JSON.stringify(userLocation));
+                        localStorage.setItem('last_route_time', new Date().toISOString());
+                        
                     },
                     // ERROR: No se pudo obtener ubicación
                     function(error) {
+                        console.error('Error de geolocalización:', error);
                         let errorMsg = "No se pudo obtener tu ubicación. ";
                         
                         switch(error.code) {
                             case error.PERMISSION_DENIED:
-                                errorMsg = "📍 Permiso denegado. Para ver el recorrido personalizado, por favor permite el acceso a tu ubicación en la configuración del navegador.";
+                                errorMsg = "📍 Permiso denegado. Para una ruta precisa, por favor permite el acceso a tu ubicación en la configuración de tu navegador.";
                                 break;
                             case error.POSITION_UNAVAILABLE:
-                                errorMsg = "📍 Ubicación no disponible. Asegúrate de tener el GPS activado o conectarte a WiFi.";
+                                errorMsg = "📍 Ubicación no disponible. Asegúrate de tener el GPS activado o estar conectado a una red WiFi.";
                                 break;
                             case error.TIMEOUT:
-                                errorMsg = "📍 Tiempo de espera agotado. Intenta nuevamente.";
+                                errorMsg = "📍 Tiempo de espera agotado. Verifica tu conexión a internet.";
                                 break;
                             default:
                                 errorMsg = "📍 Error desconocido al obtener la ubicación.";
                         }
                         
-                        showMessage(`❌ ${errorMsg}`, 'error');
+                        showMessage(`❌ ${errorMsg} Abriendo Google Maps...`, 'error');
                         
-                        // Ofrecer alternativa
+                        // Abrir Google Maps sin ubicación
                         setTimeout(() => {
-                            if (confirm("¿Quieres ver una ruta de ejemplo desde el centro de la ciudad?")) {
-                                showExampleRoute();
-                            }
-                        }, 1000);
+                            openGoogleMapsWithoutOrigin();
+                        }, 2000);
                         
+                        // Restaurar botón
                         btn.disabled = false;
                         btn.innerHTML = originalText;
                     },
-                    // OPCIONES de geolocalización
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
+                    geoOptions
                 );
             });
             
-            // FUNCIÓN PARA MOSTRAR RUTA DE EJEMPLO
-            function showExampleRoute() {
-                // Coordenadas del centro de Bialet Massé como ejemplo
-                const exampleLocation = {
-                    lat: -31.308000,
-                    lng: -64.465000,
-                    name: "Centro de Bialet Massé"
-                };
+            // 2. MOSTRAR MODAL CON LA RUTA
+            function showRouteModal(embedUrl, distance, time) {
+                // Cargar el iframe con la ruta
+                routeMap.src = embedUrl;
                 
-                userLocation = exampleLocation;
+                // Actualizar información de la ruta
+                updateRouteInfo(distance, time);
                 
-                const distance = calculateDistance(
-                    exampleLocation.lat,
-                    exampleLocation.lng,
-                    AMICI_COORDINATES.lat,
-                    AMICI_COORDINATES.lng
-                );
-                
-                currentRouteUrl = createRouteUrl(exampleLocation, AMICI_COORDINATES);
-                const mapUrl = createEmbeddedRouteUrl(exampleLocation, AMICI_COORDINATES);
-                routeMap.src = mapUrl;
-                
-                updateRouteInfo(distance, exampleLocation);
+                // Mostrar modal
                 routeModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
                 
-                showMessage('📍 Mostrando ruta de ejemplo desde el centro.', 'info');
+                // Mostrar mensaje de éxito
+                showMessage('✅ Ruta calculada exitosamente. Modal abierto.', 'success');
             }
             
-            // FUNCIÓN PARA CREAR URL DE RUTA PARA IFRAME
-            function createEmbeddedRouteUrl(origin, destination) {
-                // URL especial para iframe con ruta visible
-                return `https://www.google.com/maps/embed/v1/directions?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&mode=driving&language=es`;
-            }
-            
-            // FUNCIÓN PARA CREAR URL DE RUTA PARA GOOGLE MAPS
-            function createRouteUrl(origin, destination) {
-                return `https://www.google.com/maps/dir/?api=1` +
-                       `&origin=${origin.lat},${origin.lng}` +
-                       `&destination=${destination.lat},${destination.lng}` +
-                       `&destination_place_id=${destination.placeId}` +
-                       `&travelmode=driving`;
-            }
-            
-            // FUNCIÓN PARA ACTUALIZAR INFORMACIÓN DE LA RUTA
-            function updateRouteInfo(distance, origin) {
-                const time = Math.round(distance.km * 2.5); // Estimación: 2.5 min por km
+            // 3. ACTUALIZAR INFORMACIÓN DE LA RUTA
+            function updateRouteInfo(distance, time) {
+                if (!routeInfo) return;
+                
+                // Calcular consumo aproximado de combustible (8km por litro)
+                const fuelConsumption = (distance.km / 8).toFixed(1);
                 
                 routeInfo.innerHTML = `
                     <div class="route-item">
@@ -1178,8 +1338,8 @@
                     <div class="route-item">
                         <i class="fas fa-gas-pump"></i>
                         <div>
-                            <div class="label">COMBUSTIBLE</div>
-                            <div class="value">~${(distance.km * 0.1).toFixed(1)} L</div>
+                            <div class="label">COMBUSTIBLE APROX.</div>
+                            <div class="value">${fuelConsumption} L</div>
                         </div>
                     </div>
                     <div class="route-item">
@@ -1192,7 +1352,98 @@
                 `;
             }
             
-            // FUNCIÓN PARA CALCULAR DISTANCIA
+            // 4. CERRAR MODAL
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    routeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    // Limpiar iframe para liberar memoria
+                    routeMap.src = '';
+                });
+            }
+            
+            // Cerrar modal al hacer clic fuera
+            routeModal.addEventListener('click', function(e) {
+                if (e.target === routeModal) {
+                    routeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    routeMap.src = '';
+                }
+            });
+            
+            // 5. ABRIR EN GOOGLE MAPS
+            if (openInMapsBtn) {
+                openInMapsBtn.addEventListener('click', function() {
+                    if (currentRouteUrl) {
+                        window.open(currentRouteUrl, '_blank', 'noopener,noreferrer');
+                    } else {
+                        openGoogleMapsWithoutOrigin();
+                    }
+                });
+            }
+            
+            // 6. COMPARTIR RUTA
+            if (shareRouteBtn) {
+                shareRouteBtn.addEventListener('click', function() {
+                    if (!currentRouteUrl) {
+                        currentRouteUrl = `https://www.google.com/maps/dir/?api=1&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}`;
+                    }
+                    
+                    const shareText = `📍 Ruta hacia AMICI Pizza y Lomos\n` +
+                                   `Distancia: ${routeDistance ? routeDistance.km.toFixed(1) + ' km' : 'Calculando...'}\n` +
+                                   `Tiempo estimado: ${routeTime ? routeTime + ' minutos' : 'Calculando...'}\n` +
+                                   `Ubicación: ${AMICI_COORDINATES.address}\n\n` +
+                                   `Ver ruta completa: ${currentRouteUrl}`;
+                    
+                    // Intentar usar Web Share API
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Ruta a AMICI Pizza y Lomos',
+                            text: shareText,
+                            url: currentRouteUrl
+                        }).catch(err => {
+                            console.log('Error al compartir:', err);
+                            copyToClipboard(shareText);
+                        });
+                    } else {
+                        // Fallback: copiar al portapapeles
+                        copyToClipboard(shareText);
+                    }
+                });
+            }
+            
+            // 7. FUNCIÓN PARA COPIAR AL PORTAPAPELES
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showMessage('✅ Ruta copiada al portapapeles', 'success');
+                }).catch(err => {
+                    console.error('Error al copiar:', err);
+                    // Fallback para navegadores antiguos
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        showMessage('✅ Ruta copiada al portapapeles', 'success');
+                    } catch (err) {
+                        showMessage('❌ Error al copiar la ruta', 'error');
+                    }
+                    document.body.removeChild(textArea);
+                });
+            }
+            
+            // 8. FUNCIÓN PARA ABRIR GOOGLE MAPS SIN UBICACIÓN
+            function openGoogleMapsWithoutOrigin() {
+                const mapsUrl = `https://www.google.com/maps/dir/?api=1` +
+                              `&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}` +
+                              `&destination_place_id=${AMICI_COORDINATES.placeId}` +
+                              `&travelmode=driving`;
+                
+                window.open(mapsUrl, '_blank', 'noopener,noreferrer');
+            }
+            
+            // 9. FUNCIÓN PARA CALCULAR DISTANCIA (Fórmula del haversine)
             function calculateDistance(lat1, lon1, lat2, lon2) {
                 const R = 6371; // Radio de la Tierra en km
                 const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -1209,96 +1460,271 @@
                 return { km };
             }
             
-            // FUNCIÓN PARA MOSTRAR MENSAJES
+            // 10. FUNCIÓN PARA MOSTRAR MENSAJES
             function showMessage(text, type = "info") {
+                if (!locationMessage) return;
+                
                 locationMessage.innerHTML = text;
                 locationMessage.className = "location-message show " + type;
                 
                 // Ocultar mensaje después de 5 segundos
                 setTimeout(() => {
-                    locationMessage.classList.remove("show");
+                    if (locationMessage.classList.contains("show")) {
+                        locationMessage.classList.remove("show");
+                    }
                 }, 5000);
             }
             
-            // RUTA DE RESPUESTA (sin ubicación)
-            function fallbackToManualRoute() {
-                currentRouteUrl = `https://www.google.com/maps/dir/?api=1&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}`;
-                window.open(currentRouteUrl, '_blank');
+            // 11. MEJORAS DE ACCESIBILIDAD PARA EL MODAL
+            document.addEventListener('keydown', function(e) {
+                if (routeModal.classList.contains('active')) {
+                    // Cerrar modal con Escape
+                    if (e.key === 'Escape') {
+                        routeModal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        routeMap.src = '';
+                    }
+                    // Navegación con Tab dentro del modal
+                    if (e.key === 'Tab') {
+                        const focusableElements = routeModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                        const firstElement = focusableElements[0];
+                        const lastElement = focusableElements[focusableElements.length - 1];
+                        
+                        if (e.shiftKey && document.activeElement === firstElement) {
+                            e.preventDefault();
+                            lastElement.focus();
+                        } else if (!e.shiftKey && document.activeElement === lastElement) {
+                            e.preventDefault();
+                            firstElement.focus();
+                        }
+                    }
+                }
+            });
+            
+            // 12. INICIALIZACIÓN ADICIONAL
+            function initialize() {
+                console.log('Inicializando aplicación...');
+                
+                // Guardar coordenadas en localStorage
+                try {
+                    localStorage.setItem('amici_coordinates', JSON.stringify(AMICI_COORDINATES));
+                } catch (e) {
+                    console.log('No se pudo guardar en localStorage:', e);
+                }
+                
+                // Intentar cargar ubicación anterior
+                try {
+                    const lastLocation = localStorage.getItem('last_user_location');
+                    if (lastLocation) {
+                        userLocation = JSON.parse(lastLocation);
+                        console.log('Ubicación anterior cargada:', userLocation);
+                    }
+                } catch (e) {
+                    console.log('No se pudo cargar ubicación anterior:', e);
+                }
+                
+                // Mejorar comportamiento del navbar en móviles
+                improveNavbarMobile();
+                
+                // Añadir clase al body para estilos específicos
+                document.body.classList.add('map-page-loaded');
             }
             
-            // HEADER SCROLL EFFECT
-            let lastScroll = 0;
-            const header = document.querySelector('header');
+            // 13. MEJORAR NAVBAR EN MÓVILES
+            function improveNavbarMobile() {
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                
+                if (navbarToggler && navbarCollapse) {
+                    // Prevenir cierre automático en clics dentro del menú
+                    navbarCollapse.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') {
+                            // Cerrar menú después de un retraso para animación
+                            setTimeout(() => {
+                                if (window.innerWidth < 992) {
+                                    navbarToggler.click();
+                                }
+                            }, 300);
+                        }
+                    });
+                    
+                    // Mejorar accesibilidad
+                    navbarToggler.setAttribute('aria-label', 'Alternar menú de navegación');
+                    navbarCollapse.setAttribute('aria-label', 'Menú principal');
+                }
+            }
             
-            window.addEventListener('scroll', () => {
+            // 14. MANEJAR CARGA DEL MAPA
+            if (mapLoader) {
+                const mainMap = document.querySelector('.container-map iframe');
+                if (mainMap) {
+                    mainMap.addEventListener('load', function() {
+                        mapLoader.classList.remove('active');
+                        console.log('Mapa principal cargado');
+                    });
+                    
+                    mainMap.addEventListener('error', function() {
+                        mapLoader.classList.remove('active');
+                        console.error('Error al cargar el mapa');
+                        showMessage('❌ Error al cargar el mapa. Por favor, intenta recargar la página.', 'error');
+                    });
+                }
+            }
+            
+            // 15. PREVENIR COMPORTAMIENTO POR DEFECTO EN FORMULARIOS (si los hay)
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                });
+            });
+            
+            // 16. INICIALIZAR TODO
+            initialize();
+            
+            // 17. MANEJAR CAMBIOS DE ORIENTACIÓN EN MÓVILES
+            window.addEventListener('orientationchange', function() {
+                setTimeout(() => {
+                    // Recalcular si es necesario
+                    if (routeModal.classList.contains('active') && userLocation) {
+                        const embedUrl = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8` +
+                                       `&origin=${userLocation.lat},${userLocation.lng}` +
+                                       `&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}` +
+                                       `&mode=driving&language=es`;
+                        routeMap.src = embedUrl;
+                    }
+                }, 300);
+            });
+            
+        }); // Fin del DOMContentLoaded
+        
+        // 18. MANEJAR ERRORES GLOBALES
+        window.addEventListener('error', function(e) {
+            console.error('Error global:', e.error);
+        });
+        
+        // 19. EXPORTAR FUNCIONES PARA DEBUG (opcional)
+        window.AMICI_MAP = {
+            getCoordinates: function() { return AMICI_COORDINATES; },
+            getUserLocation: function() { return userLocation; },
+            calculateRoute: function() {
+                const btn = document.getElementById('getDirectionsBtn');
+                if (btn) btn.click();
+            },
+            showTestRoute: function(lat, lng) {
+                // Función para testing
+                userLocation = { lat: lat || -31.308000, lng: lng || -64.465000 };
+                const distance = calculateDistance(userLocation.lat, userLocation.lng, AMICI_COORDINATES.lat, AMICI_COORDINATES.lng);
+                const time = Math.round((distance.km / 40) * 60);
+                const embedUrl = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8` +
+                               `&origin=${userLocation.lat},${userLocation.lng}` +
+                               `&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}` +
+                               `&mode=driving&language=es`;
+                showRouteModal(embedUrl, distance, time);
+            }
+        };
+        
+        // Función auxiliar global para calcular distancia
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const km = R * c;
+            return { km };
+        }
+        
+        // Función auxiliar global para mostrar modal
+        function showRouteModal(embedUrl, distance, time) {
+            const modal = document.getElementById('routeModal');
+            const routeMap = document.getElementById('routeMap');
+            const routeInfo = document.getElementById('routeInfo');
+            
+            if (modal && routeMap && routeInfo) {
+                routeMap.src = embedUrl;
+                
+                const fuelConsumption = (distance.km / 8).toFixed(1);
+                routeInfo.innerHTML = `
+                    <div class="route-item">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <div class="label">DISTANCIA</div>
+                            <div class="value">${distance.km.toFixed(1)} km</div>
+                        </div>
+                    </div>
+                    <div class="route-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <div class="label">TIEMPO ESTIMADO</div>
+                            <div class="value">${time} minutos</div>
+                        </div>
+                    </div>
+                    <div class="route-item">
+                        <i class="fas fa-gas-pump"></i>
+                        <div>
+                            <div class="label">COMBUSTIBLE APROX.</div>
+                            <div class="value">${fuelConsumption} L</div>
+                        </div>
+                    </div>
+                    <div class="route-item">
+                        <i class="fas fa-car"></i>
+                        <div>
+                            <div class="label">MODO</div>
+                            <div class="value">En auto</div>
+                        </div>
+                    </div>
+                `;
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+    </script>
+    
+    <!-- SCRIPT DE NAVBAR SCROLL (OPCIONAL) -->
+    <script>
+        // Script simple para navbar scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', function() {
                 const currentScroll = window.pageYOffset;
                 
                 if (currentScroll <= 0) {
-                    header.style.transform = 'translateY(0)';
+                    navbar.style.boxShadow = 'none';
                     return;
                 }
                 
                 if (currentScroll > lastScroll && currentScroll > 100) {
-                    header.style.transform = 'translateY(-100%)';
-                } else if (currentScroll < lastScroll) {
-                    header.style.transform = 'translateY(0)';
+                    // Scrolling down
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    navbar.style.transform = 'translateY(0)';
+                    navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
                 }
                 
                 lastScroll = currentScroll;
             });
             
-            // Guardar coordenadas en localStorage
-            localStorage.setItem('amici_coordinates', JSON.stringify(AMICI_COORDINATES));
-            
-            // Intentar cargar ubicación anterior
-            try {
-                const lastLocation = localStorage.getItem('last_user_location');
-                if (lastLocation) {
-                    userLocation = JSON.parse(lastLocation);
-                }
-            } catch (e) {
-                console.log('No se pudo cargar ubicación anterior');
-            }
-            
-            // BOTÓN ALTERNATIVO FIJO
-            // const addFixedButton = true;
-            // if (addFixedButton) {
-            //     const fixedBtn = document.createElement('a');
-            //     fixedBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${AMICI_COORDINATES.lat},${AMICI_COORDINATES.lng}`;
-            //     fixedBtn.target = "_blank";
-            //     fixedBtn.className = "map-btn";
-            //     fixedBtn.innerHTML = '<i class="fas fa-map-signs"></i> Ver ruta sin mi ubicación';
-            //     fixedBtn.style.marginTop = '10px';
-            //     fixedBtn.style.width = '100%';
-            //     fixedBtn.style.maxWidth = '300px';
-            //     fixedBtn.style.justifyContent = 'center';
-            //     document.querySelector('.map-controls').appendChild(fixedBtn);
-            // }
+            // Mejorar accesibilidad del navbar
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('focus', function() {
+                    this.style.outline = '2px solid #4dabf7';
+                    this.style.outlineOffset = '2px';
+                });
+                link.addEventListener('blur', function() {
+                    this.style.outline = 'none';
+                });
+            });
         });
     </script>
-	<script src="./js/js_map/partials.js"></script>
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
