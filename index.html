@@ -7,6 +7,7 @@
 			content="width=device-width, initial-scale=1.0"
 		/>
 		<title>Comidas AMICI</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 		<link rel="icon" href="./assets/logo/logo_redondeado.png" type="image/svg+xml" />
 		<link
 			rel="stylesheet"
@@ -19,32 +20,40 @@
 		<link rel="stylesheet" href="./css/whatsapp-float.css">
 	</head>
 	<body>
-		<header>
-			<div class="container header-expand">
-				<div class="container-logo">
-					<img src="./assets/logo/logo_redondeado.png" alt="Logo" />
-					<span> Comidas AMICI </span>
-				</div>
-
-				<nav>
-					<ul>
-						<li>
-							<a href="#menu_amici"> VER MENU </a>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-3" style="background-color: rgba(33, 37, 41, 0.4); backdrop-filter: blur(2px);">
+			<div class="container">
+				<!-- Logo/Brand -->
+				<a class="navbar-brand fw-bold text-white" href="index.html">
+					<span>Comidas AMICI</span>
+				</a>
+				
+				<!-- Botón hamburguesa (responsive) -->
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<!-- Contenido del menú -->
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link text-white" href="index.html#menu_amici">
+								<i class="fa-solid fa-utensils me-1"></i> VER MENÚ
+							</a>
 						</li>
-						<li>
-							<a href='index_form_ubicación.html'> CONTACTO </a>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="index_form_ubicación.html">
+								<i class="fa-solid fa-envelope me-1"></i> CONTACTO
+							</a>
 						</li>
-						<li>
-							<a href='map.html'> UBICACION </a>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="map.html">
+								<i class="fa-solid fa-location-dot me-1"></i> UBICACIÓN
+							</a>
 						</li>
 					</ul>
-				</nav>
-
-				<button class="btn-toggle">
-					<i class="fa-solid fa-bars active"></i>
-					<i class="fa-solid fa-xmark"></i>
+				</div>
 			</div>
-		</header>
+		</nav>
 
 		<section class="hero-banner">
 			<div class="container">
@@ -145,7 +154,9 @@
 			</a>
 		</div>
 
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 		<script src="js/partials.js"></script>
 		<script src="js/home.js"></script>
+		<script src="./js/navbar-scroll.js"></script>
 	</body>
 </html>

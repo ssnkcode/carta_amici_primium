@@ -1,0 +1,142 @@
+/* style-bootstrap.css - Estilos para navbar Bootstrap personalizado */
+
+/* Variables de color */
+:root {
+    --navbar-bg: rgba(0, 0, 0, 0.85); /* Negro traslúcido */
+    --navbar-scrolled-bg: rgba(0, 0, 0, 0.95); /* Más opaco al hacer scroll */
+    --navbar-text: #ffffff;
+    --navbar-hover: #f8f9fa;
+    --navbar-transition: all 0.4s ease;
+}
+
+/* NAVBAR PRINCIPAL */
+#mainNavbar {
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px); /* Efecto de desenfoque detrás */
+    -webkit-backdrop-filter: blur(10px);
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    transition: var(--navbar-transition);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1030; /* Asegura que esté por encima */
+}
+
+/* Padding aumentado para items del navbar */
+.navbar-nav .nav-item {
+    margin: 0 0.5rem;
+}
+
+.navbar-nav .nav-link {
+    color: var(--navbar-text) !important;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem !important;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+/* Efecto hover para los enlaces */
+.navbar-nav .nav-link:hover {
+    color: var(--navbar-hover) !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Efecto activo/current */
+.navbar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff !important;
+}
+
+/* Logo/brand styling */
+.navbar-brand {
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
+    transition: var(--navbar-transition);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+/* Iconos */
+.navbar-nav .nav-link i {
+    font-size: 1.1rem;
+    vertical-align: middle;
+}
+
+/* Botón hamburguesa */
+.navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 0.75rem;
+    transition: var(--navbar-transition);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ESTILOS PARA SCROLL */
+#mainNavbar.navbar-scrolled {
+    background-color: var(--navbar-scrolled-bg);
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+#mainNavbar.navbar-scrolled .navbar-brand {
+    font-size: 1.4rem;
+}
+
+/* Ajuste para contenido debajo del navbar fijo */
+body {
+    padding-top: 85px; /* Ajusta según la altura de tu navbar */
+    transition: padding-top 0.4s ease;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 991.98px) {
+    #mainNavbar {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.8rem 1rem !important;
+        margin: 0.2rem 0;
+    }
+    
+    .navbar-collapse {
+        background-color: rgba(0, 0, 0, 0.9);
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+        padding-top: 70px;
+    }
+}
+
+/* Animación suave para el navbar */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#mainNavbar {
+    animation: fadeInDown 0.5s ease;
+}
