@@ -2,20 +2,832 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comidas AMICI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Comidas AMICI - Pedidos por WhatsApp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" href="./assets/logo/logo_redondeado.png" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/css_form/form-whats.css">
     <link rel="stylesheet" href="./css/css_map/header.css" />
     <link rel="stylesheet" href="./css/whatsapp-float.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="./css/responsive-menu.css">
+    
+    <style>
+        /* ESTILOS CORREGIDOS PARA EL FORMULARIO - FULLY RESPONSIVE */
+        :root {
+            --color-primary: #a6a182;
+            --color-secondary: #1f2120;
+            --color-dark: #0e110d;
+            --color-light: #ffffff;
+            --color-gray: #aeb0b4;
+            --color-success: #28a745;
+            --color-warning: #ffc107;
+            --color-danger: #dc3545;
+            --color-info: #17a2b8;
+            --border-radius: 10px;
+            --input-radius: 8px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0e110d 0%, #1a1d1b 100%);
+            color: var(--color-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: 80px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 20px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* HEADER DEL FORMULARIO */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(166, 161, 130, 0.1) 0%, rgba(31, 33, 32, 0.3) 100%);
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--color-primary);
+            box-shadow: var(--box-shadow);
+        }
+
+        .header h1 {
+            color: var(--color-primary);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px 15px;
+        }
+
+        .header h1 i {
+            font-size: clamp(1.3rem, 4vw, 2.2rem);
+            color: var(--color-primary);
+        }
+
+        .header p {
+            color: var(--color-gray);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* INFORMACIÓN DE CONTACTO - AJUSTADO PARA RESPONSIVE */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-number {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(37, 211, 102, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 4px solid #25d366;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .whatsapp-number i {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #25d366;
+            flex-shrink: 0;
+        }
+
+        .whatsapp-number span {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            color: var(--color-light);
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .location-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 4px solid #3498db;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .location-toggle span {
+            font-weight: 600;
+            color: var(--color-light);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: clamp(0.8rem, 2.2vw, 1rem);
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: fit-content;
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .toggle-btn i {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        }
+
+        /* CONTENEDOR DEL FORMULARIO */
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: clamp(15px, 3vw, 30px);
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        /* SECCIONES DEL FORMULARIO */
+        .form-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            color: var(--color-primary);
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(166, 161, 130, 0.3);
+            flex-wrap: wrap;
+        }
+
+        .section-title i {
+            font-size: clamp(0.9rem, 2.8vw, 1.3rem);
+        }
+
+        /* GRID DEL FORMULARIO */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        /* GRUPOS DE FORMULARIO */
+        .form-group {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-light);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .form-group label.required:after {
+            content: " *";
+            color: var(--color-danger);
+        }
+
+        .input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-container input,
+        .input-container textarea,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 45px 14px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--input-radius);
+            color: var(--color-light);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .input-container input:focus,
+        .input-container textarea:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(166, 161, 130, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .input-container .icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-primary);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: var(--color-gray);
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+        }
+
+        /* BOTÓN DE UBICACIÓN AUTOMÁTICA */
+        .auto-location-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: clamp(14px, 3vw, 16px) clamp(20px, 4vw, 25px);
+            border-radius: var(--input-radius);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .auto-location-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .auto-location-btn i {
+            font-size: clamp(1rem, 2.8vw, 1.3rem);
+        }
+
+        /* MENSAJE DE UBICACIÓN */
+        .location-message {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: clamp(12px, 2.5vw, 15px);
+            border-radius: var(--input-radius);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .location-message i {
+            color: #3498db;
+            font-size: clamp(1rem, 2.8vw, 1.3rem);
+            flex-shrink: 0;
+        }
+
+        .location-message span {
+            color: var(--color-light);
+            font-weight: 500;
+            font-size: clamp(0.85rem, 2.2vw, 1rem);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* GRID DE UBICACIÓN */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* COORDENADAS */
+        .coordinates {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* INFORMACIÓN DE UBICACIÓN */
+        .location-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: clamp(12px, 2.5vw, 15px);
+            border-radius: var(--input-radius);
+            border-left: 4px solid var(--color-primary);
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .location-info p {
+            margin: 0;
+            color: var(--color-gray);
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .location-info i {
+            color: var(--color-primary);
+            margin-top: 3px;
+            flex-shrink: 0;
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
+        }
+
+        /* TEXTAREA DEL PEDIDO */
+        textarea#pedido {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--input-radius);
+            color: var(--color-light);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            resize: vertical;
+            transition: var(--transition);
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        /* BOTÓN DE ENVÍO */
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border: none;
+            padding: clamp(14px, 3vw, 18px) clamp(25px, 5vw, 40px);
+            border-radius: 50px;
+            font-size: clamp(1rem, 2.8vw, 1.2rem);
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn i {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+        }
+
+        /* MENSAJES DE ESTADO */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+
+        .loading i {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #3498db;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: clamp(20px, 4vw, 30px);
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+            border-left: 5px solid var(--color-success);
+        }
+
+        .success-message i {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--color-success);
+            margin-bottom: 15px;
+        }
+
+        .success-message h3 {
+            color: var(--color-success);
+            margin-bottom: 10px;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+        }
+
+        .success-message p {
+            color: var(--color-gray);
+            margin: 0;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: clamp(15px, 3vw, 25px);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin: 8px 0;
+            color: var(--color-gray);
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            line-height: 1.5;
+        }
+
+        .footer i {
+            color: var(--color-primary);
+            margin-right: 8px;
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
+        }
+
+        /* FLOTANTE DE WHATSAPP - RESPONSIVE */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 1000;
+        }
+
+        .whatsapp-link {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 2.5vw, 16px);
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: var(--transition);
+            gap: 8px;
+            max-width: 100%;
+        }
+
+        .whatsapp-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            color: white;
+            text-decoration: none;
+        }
+
+        .whatsapp-link i {
+            font-size: clamp(1.3rem, 3vw, 1.6rem);
+            flex-shrink: 0;
+        }
+
+        .whatsapp-tooltip {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+            white-space: nowrap;
+            right: 100%;
+            margin-right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .whatsapp-link:hover .whatsapp-tooltip {
+            display: block;
+        }
+
+        .whatsapp-number {
+            font-weight: 700;
+            font-size: clamp(0.8rem, 2.2vw, 1rem);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        /* Desde 290px (tamaño mínimo) */
+        @media (min-width: 290px) {
+            body {
+                padding-top: 70px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            
+            .container {
+                padding: 10px;
+                width: 100%;
+            }
+            
+            .header {
+                padding: 20px 15px;
+                margin-bottom: 25px;
+            }
+            
+            .header h1 {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .whatsapp-number,
+            .location-toggle {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .location-toggle {
+                justify-content: flex-start;
+            }
+            
+            .toggle-btn {
+                align-self: flex-start;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 12px 35px 12px 12px;
+            }
+            
+            .whatsapp-link {
+                padding: 8px 12px;
+            }
+            
+            .whatsapp-number span {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Para tablets pequeñas (480px en adelante) */
+        @media (min-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .whatsapp-number,
+            .location-toggle {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .location-toggle {
+                justify-content: space-between;
+            }
+            
+            .whatsapp-link {
+                padding: 10px 15px;
+            }
+            
+            .location-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+        }
+
+        /* Para tablets (768px en adelante) */
+        @media (min-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .contact-info {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .whatsapp-number,
+            .location-toggle {
+                width: calc(50% - 10px);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            
+            .location-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .coordinates {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .whatsapp-link {
+                padding: 12px 18px;
+            }
+        }
+
+        /* Para notebooks/desktops (992px en adelante) */
+        @media (min-width: 992px) {
+            .location-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+            
+            .header {
+                padding: 30px;
+            }
+            
+            .whatsapp-float {
+                bottom: 25px;
+                right: 25px;
+            }
+        }
+
+        /* Para pantallas grandes (1200px en adelante) */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            .form-grid {
+                gap: 40px;
+            }
+        }
+
+        /* Para pantallas muy pequeñas (290px - 359px) */
+        @media (max-width: 359px) {
+            .toggle-btn span {
+                display: none;
+            }
+            
+            .toggle-btn {
+                padding: 10px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                justify-content: center;
+            }
+            
+            .toggle-btn i {
+                margin: 0;
+            }
+            
+            .whatsapp-link .whatsapp-number {
+                display: none;
+            }
+            
+            .whatsapp-link {
+                padding: 10px;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                justify-content: center;
+            }
+            
+            .whatsapp-link i {
+                margin: 0;
+            }
+        }
+
+        /* ESTADOS DE VALIDACIÓN */
+        input:valid,
+        textarea:valid {
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        input:invalid:not(:placeholder-shown),
+        textarea:invalid:not(:placeholder-shown) {
+            border-color: rgba(220, 53, 69, 0.3);
+        }
+
+        /* ANIMACIONES */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .form-section {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Mejoras de accesibilidad y usabilidad */
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        input[readonly] {
+            background: rgba(255, 255, 255, 0.05);
+            cursor: not-allowed;
+        }
+
+        /* Asegurar que todo sea responsive */
+        img, video, iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Mejorar visibilidad en móviles */
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .form-group {
+                margin-bottom: 20px;
+            }
+            
+            .btn-container {
+                margin-top: 30px;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-3" style="background-color: rgba(33, 37, 41, 0.4); backdrop-filter: blur(2px);">
-        <div class="container">
+        <div class="container-fluid">
             <!-- Logo/Brand -->
             <a class="navbar-brand fw-bold text-white" href="index.html">
                 <span>Comidas AMICI</span>
@@ -58,19 +870,20 @@
         <div class="contact-info">
             <div class="whatsapp-number">
                 <i class="fab fa-whatsapp"></i>
-                <span>Número de WhatsApp: +54 3541-387884</span>
+                <span>WHATSAPP: +54 3541-387884</span>
             </div>
-            <div class="location-toggle">
+            <!-- <div class="location-toggle">
                 <span>Ubicación automática:</span>
                 <button type="button" class="toggle-btn" id="locationToggle">
                     <i class="fas fa-map-marked-alt"></i>
-                    <span>Obtener ubicación actual</span>
+                    <span>Activar GPS</span>
                 </button>
-            </div>
+            </div> -->
         </div>
         
         <div class="form-container">
             <form id="pedidoForm">
+                <!-- SECCIÓN 1: INFORMACIÓN PERSONAL -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-user"></i> Información Personal</h2>
                     <div class="form-grid">
@@ -80,18 +893,21 @@
                                 <input type="text" id="nombre" placeholder="Ingresa tu nombre completo" required>
                                 <i class="fas fa-user icon"></i>
                             </div>
+                            <small class="text-muted">Ej: Juan Pérez</small>
                         </div>
                         
                         <div class="form-group">
                             <label for="telefono" class="required">Número de Teléfono</label>
                             <div class="input-container">
-                                <input type="tel" id="telefono" placeholder="Ej: +54 351 123-4567" required>
+                                <input type="tel" id="telefono" placeholder="Ej: 351 123-4567" required>
                                 <i class="fas fa-phone icon"></i>
                             </div>
+                            <small class="text-muted">Incluye código de área</small>
                         </div>
                     </div>
                 </div>
                 
+                <!-- SECCIÓN 2: INFORMACIÓN DE UBICACIÓN -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Información de Ubicación</h2>
                     <div class="location-section">
@@ -100,69 +916,87 @@
                                 <i class="fas fa-location-arrow"></i>
                                 Usar mi ubicación actual automáticamente
                             </button>
-                            <div class="location-message" id="locationMessage">
-                                <i class="fas fa-info-circle"></i>
-                                <span id="locationText">Ubicación no detectada aún</span>
-                            </div>
+                            
+                        </div>
+                        
+                        <div class="location-info">
+                            <p><i class="fas fa-info-circle"></i> Nota:<br> Puedes usar la ubicación automática, pero además debes llenar los campos de dirección de entrega.</p>
                         </div>
                         
                         <div class="location-grid">
                             <div class="form-group">
                                 <label for="calle">Calle</label>
-                                <input type="text" id="calle" placeholder="Nombre de la calle (opcional)">
+                                <input type="text" id="calle" placeholder="Ej: Ruta. 38">
+                                <small class="text-muted">Nombre de la calle</small>
                             </div>
                             
                             <div class="form-group">
-                                <label for="altura">Altura/Número</label>
-                                <input type="text" id="altura" placeholder="Número de calle (opcional)">
+                                <label for="altura">Número</label>
+                                <input type="text" id="altura" placeholder="Ej: 1234">
+                                <small class="text-muted">Número de calle</small>
                             </div>
                             
                             <div class="form-group">
-                                <label for="barrio">Barrio</label>
-                                <input type="text" id="barrio" placeholder="Barrio/Localidad (opcional)">
+                                <label for="barrio">Barrio/Localidad</label>
+                                <input type="text" id="barrio" placeholder="Ej: Centro">
+                                <small class="text-muted">Barrio o localidad</small>
                             </div>
                             
                             <div class="form-group">
                                 <label for="ciudad">Ciudad</label>
-                                <input type="text" id="ciudad" placeholder="Ciudad (opcional)">
+                                <input type="text" id="ciudad" placeholder="Ej: Bialet Massé">
+                                <small class="text-muted">Ciudad</small>
                             </div>
                         </div>
                         
                         <div class="coordinates">
                             <div class="form-group">
                                 <label for="latitud">Latitud</label>
-                                <input type="text" id="latitud" placeholder="Se obtendrá automáticamente" readonly>
+                                <input type="text" id="latitud" placeholder="Se detectará automáticamente" readonly>
+                                <small class="text-muted">Coordenada GPS</small>
                             </div>
                             
                             <div class="form-group">
                                 <label for="longitud">Longitud</label>
-                                <input type="text" id="longitud" placeholder="Se obtendrá automáticamente" readonly>
+                                <input type="text" id="longitud" placeholder="Se detectará automáticamente" readonly>
+                                <small class="text-muted">Coordenada GPS</small>
                             </div>
-                        </div>
-                        
-                        <div class="location-info">
-                            <p><i class="fas fa-info-circle"></i> <strong>Nota:</strong> Si utilizas la ubicación automática, los campos de dirección son opcionales. Las coordenadas serán suficientes para crear el enlace de ubicación.</p>
                         </div>
                     </div>
                 </div>
                 
+                <!-- SECCIÓN 3: DETALLE DEL PEDIDO -->
                 <div class="form-section">
                     <h2 class="section-title"><i class="fas fa-shopping-basket"></i> Detalle del Pedido</h2>
                     <div class="form-group">
                         <label for="pedido" class="required">Descripción del Pedido</label>
-                        <textarea id="pedido" placeholder="Describe tu pedido con todos los detalles (productos, cantidades, especificaciones, etc.)" required></textarea>
+                        <textarea id="pedido" placeholder="Describe tu pedido con todos los detalles:
+
+• 1 Pizza grande de muzzarella
+• 2 Empanadas de carne
+• 1 Coca-Cola 2.25L
+• 1 Lomito completo con papas fritas
+
+Especificaciones adicionales:
+- Sin cebolla en la pizza
+- Aderezo extra para las papas
+- Sin aceitunas en el lomito" required rows="8"></textarea>
+                        <small class="text-muted">Sé lo más específico posible para evitar confusiones</small>
                     </div>
                 </div>
                 
+                <!-- BOTÓN DE ENVÍO -->
                 <div class="btn-container">
                     <button type="submit" class="submit-btn" id="enviarBtn">
-                        <i class="fab fa-whatsapp"></i> Enviar Pedido con Ubicación por WhatsApp
+                        <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
                     </button>
                 </div>
             </form>
             
+            <!-- MENSAJES DE ESTADO -->
             <div class="loading" id="loadingMessage">
-                <i class="fas fa-spinner fa-spin"></i> Procesando información y creando enlace de ubicación...
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Procesando tu pedido y creando enlace de ubicación...</p>
             </div>
             
             <div class="success-message" id="successMessage">
@@ -172,23 +1006,158 @@
             </div>
         </div>
         
+        <!-- FOOTER -->
         <div class="footer">
             <p><i class="fas fa-info-circle"></i> Los datos se enviarán directamente por WhatsApp al número +54 3541-387884</p>
-            <p>Incluyendo un enlace de Google Maps con la ubicación proporcionada</p>
+            <p><i class="fas fa-clock"></i> Tiempo estimado de entrega: 30-45 minutos</p>
         </div>
     </div>
 
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
     <div class="whatsapp-float" id="whatsappFloat">
-        <a href="https://wa.me/543541387884" target="_blank" class="whatsapp-link">
+        <a href="https://wa.me/543541387884" target="_blank" class="whatsapp-link pulse">
             <i class="fab fa-whatsapp"></i>
             <span class="whatsapp-tooltip">¡Haz tu pedido por WhatsApp!</span>
-            <span class="whatsapp-number">3541-387884</span>
         </a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./js/js_form/form-whats.js"></script>
-    <script src="./js/navbar-scroll.js"></script>
-    <script src="./js/responsive-menu.js"></script>
+    
+    <script>
+        // SCRIPT PARA LA UBICACIÓN
+        document.addEventListener('DOMContentLoaded', function() {
+            const autoLocationBtn = document.getElementById('autoLocationBtn');
+            const locationText = document.getElementById('locationText');
+            const latitudInput = document.getElementById('latitud');
+            const longitudInput = document.getElementById('longitud');
+            
+            autoLocationBtn.addEventListener('click', function() {
+                locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detectando ubicación...';
+                autoLocationBtn.disabled = true;
+                autoLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detectando...';
+                
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            
+                            latitudInput.value = lat.toFixed(6);
+                            longitudInput.value = lng.toFixed(6);
+                            
+                            locationText.innerHTML = '<i class="fas fa-check-circle"></i> Ubicación detectada correctamente';
+                            locationText.parentElement.style.borderLeftColor = '#2ecc71';
+                            locationText.parentElement.style.background = 'rgba(46, 204, 113, 0.1)';
+                            
+                            autoLocationBtn.innerHTML = '<i class="fas fa-check"></i> Ubicación detectada';
+                            autoLocationBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                            
+                            // Mostrar mensaje de éxito
+                            setTimeout(() => {
+                                locationText.innerHTML = '<i class="fas fa-map-marker-alt"></i> Ubicación lista para el envío';
+                            }, 2000);
+                        },
+                        function(error) {
+                            locationText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error al obtener ubicación';
+                            locationText.parentElement.style.borderLeftColor = '#e74c3c';
+                            locationText.parentElement.style.background = 'rgba(231, 76, 60, 0.1)';
+                            
+                            autoLocationBtn.disabled = false;
+                            autoLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Intentar nuevamente';
+                        }
+                    );
+                } else {
+                    locationText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tu navegador no soporta geolocalización';
+                    autoLocationBtn.disabled = false;
+                    autoLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar ubicación automática';
+                }
+            });
+            
+            // Validación del formulario
+            const form = document.getElementById('pedidoForm');
+            const enviarBtn = document.getElementById('enviarBtn');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validar campos requeridos
+                const nombre = document.getElementById('nombre').value;
+                const telefono = document.getElementById('telefono').value;
+                const pedido = document.getElementById('pedido').value;
+                
+                if (!nombre || !telefono || !pedido) {
+                    alert('Por favor, completa todos los campos requeridos (*)');
+                    return;
+                }
+                
+                // Mostrar carga
+                enviarBtn.disabled = true;
+                loadingMessage.style.display = 'block';
+                
+                // Simular procesamiento
+                setTimeout(() => {
+                    loadingMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Redirigir a WhatsApp después de 2 segundos
+                    setTimeout(() => {
+                        const phone = '543541387884';
+                        let telefonoUsuario = telefono.trim().replace(/\s+/g, '').replace(/[-\s()]/g, '');
+
+                            if (telefonoUsuario.startsWith('0')) {
+                                telefonoUsuario = telefonoUsuario.substring(1);
+                            }
+
+                            telefonoUsuario = '+54' + telefonoUsuario;
+
+                            const message = `*NUEVO PEDIDO AMICI*%0A%0A` +
+                                        `*Nombre:* ${nombre}%0A` +
+                                        `*Teléfono:* ${telefonoUsuario}%0A` +
+                                        `*Dirección:* ${document.getElementById('calle').value || 'No especificada'}%0A` +
+                                        `*Pedido:*%0A${pedido.replace(/\n/g, '%0A')}`;
+                        
+                        window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+                        
+                        // Resetear formulario
+                        form.reset();
+                        successMessage.style.display = 'none';
+                        enviarBtn.disabled = false;
+                    }, 2000);
+                }, 1500);
+            });
+            
+            // Ajuste responsivo para el botón flotante en pantallas muy pequeñas
+            function adjustWhatsAppButton() {
+                const whatsappFloat = document.getElementById('whatsappFloat');
+                const whatsappLink = whatsappFloat.querySelector('.whatsapp-link');
+                const whatsappNumber = whatsappFloat.querySelector('.whatsapp-number');
+                const tooltip = whatsappFloat.querySelector('.whatsapp-tooltip');
+                
+                if (window.innerWidth <= 359) {
+                    whatsappLink.style.padding = '10px';
+                    whatsappLink.style.borderRadius = '50%';
+                    whatsappLink.style.width = '50px';
+                    whatsappLink.style.height = '50px';
+                    whatsappLink.style.justifyContent = 'center';
+                    whatsappNumber.style.display = 'none';
+                    tooltip.style.display = 'none';
+                } else {
+                    whatsappLink.style.padding = '';
+                    whatsappLink.style.borderRadius = '';
+                    whatsappLink.style.width = '';
+                    whatsappLink.style.height = '';
+                    whatsappLink.style.justifyContent = '';
+                    whatsappNumber.style.display = '';
+                }
+            }
+            
+            // Ajustar al cargar y al cambiar tamaño
+            adjustWhatsAppButton();
+            window.addEventListener('resize', adjustWhatsAppButton);
+        });
+    </script>
 </body>
 </html>
