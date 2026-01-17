@@ -293,7 +293,15 @@
       "precio": 14000,
       "categoria": "Sandwiches",
       "descripcion": null,
-      "image": "./assets/productos/amburlomo-doble.webp"
+      "image": "./assets/productos/hamburlo_simple.webp"
+    },
+    {
+      "id": 36,
+      "titulo": "Hamburlomo Simple con papas",
+      "precio": 14000,
+      "categoria": "Sandwiches",
+      "descripcion": null,
+      "image": "./assets/productos/hamburlo_simple_papas.webp"
     },
     {
       "id": 37,
