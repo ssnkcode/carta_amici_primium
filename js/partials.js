@@ -1,6 +1,7 @@
 /* ********************************** */
 /*               HEADER               */
 /* ********************************** */
+if(document.querySelector('.btn-toggle')){
 const btnToggleResponsive = document.querySelector('.btn-toggle');
 const menuResponsive = document.querySelector('.menu-responsive');
 const header = document.querySelector('header')
@@ -23,3 +24,5 @@ btnToggleResponsive.addEventListener('click', () => {
 		menuResponsive.classList.remove('show');
 	}
 });
+}
+

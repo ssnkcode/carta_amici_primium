@@ -61,8 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //
-
+if(document.querySelector('.btn-toggle')){
 // Menú hamburguesa
+
 document.querySelector('.btn-toggle').addEventListener('click', function() {
     // Crear el menú responsive si no existe
     let menu = document.querySelector('.menu-responsive');
@@ -89,3 +90,4 @@ document.querySelector('.btn-toggle').addEventListener('click', function() {
     xmark.classList.toggle('active');
 });
 
+}

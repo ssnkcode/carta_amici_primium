@@ -3,14 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>Comidas AMICI - Pedidos por WhatsApp</title>
+    <title>Pedidos por WhatsApp - Comidas AMICI | Formulario de Pedidos Online</title>
+    <meta name="description" content="Realiza tu pedido online en Comidas AMICI. Formulario de pedidos con ubicación GPS. Pizzas, hamburguesas, lomos y empanadas. Entrega rápida en Bialet Massé. WhatsApp: 3541-387884" />
+    <meta name="keywords" content="pedidos online AMICI, pedidos WhatsApp, delivery AMICI, formulario pedidos, pedir comida online, AMICI pedidos, delivery Bialet Massé" />
+    <meta name="author" content="Comidas AMICI" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="Spanish" />
+    <meta name="geo.region" content="AR-X" />
+    <meta name="geo.placename" content="Bialet Massé" />
+    <meta name="geo.position" content="-31.3073007;-64.4632021" />
+    <meta name="ICBM" content="-31.3073007, -64.4632021" />
+    <link rel="canonical" href="https://www.comidasamici.com.ar/index_form_ubicación.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pedidos por WhatsApp - Comidas AMICI" />
+    <meta property="og:description" content="Realiza tu pedido online con formulario de ubicación GPS. Pizzas, hamburguesas, lomos y empanadas. Entrega rápida en Bialet Massé." />
+    <meta property="og:url" content="https://www.comidasamici.com.ar/index_form_ubicación.html" />
+    <meta property="og:site_name" content="Comidas AMICI" />
+    <meta property="og:image" content="https://www.comidasamici.com.ar/assets/logo/logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Formulario de Pedidos Comidas AMICI" />
+    <meta property="og:locale" content="es_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pedidos por WhatsApp - Comidas AMICI" />
+    <meta name="twitter:description" content="Formulario de pedidos online con ubicación GPS. Entrega rápida en Bialet Massé." />
+    <meta name="twitter:image" content="https://www.comidasamici.com.ar/assets/logo/logo.png" />
+    <meta name="theme-color" content="#a6a182" />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Formulario de Pedidos AMICI",
+        "url": "https://www.comidasamici.com.ar/index_form_ubicación.html",
+        "applicationCategory": "FoodOrderingApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "ARS"
+        },
+        "provider": {
+            "@type": "Restaurant",
+            "name": "Comidas AMICI",
+            "telephone": "+543541387884",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Av. Roque Sáenz Peña 47",
+                "addressLocality": "Bialet Massé",
+                "addressRegion": "Córdoba",
+                "postalCode": "5158",
+                "addressCountry": "AR"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": -31.3073007,
+                "longitude": -64.4632021
+            }
+        },
+        "potentialAction": {
+            "@type": "OrderAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://wa.me/543541387884",
+                "actionPlatform": [
+                    "http://schema.org/DesktopWebPlatform",
+                    "http://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
+    }
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" href="./assets/logo/logo_redondeado.png" type="image/svg+xml" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./css/css_form/form-whats.css">
-    <link rel="stylesheet" href="./css/css_map/header.css" />
-    <link rel="stylesheet" href="./css/whatsapp-float.css">
-    
     <style>
         /* ESTILOS CORREGIDOS PARA EL FORMULARIO - FULLY RESPONSIVE */
         :root {
@@ -890,6 +955,11 @@
                             
                         </div>
                         
+                        <div class="location-message" id="locationText" style="display: none;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Presiona el botón para detectar tu ubicación</span>
+                        </div>
+                        
                         <div class="location-info">
                             <p><i class="fas fa-info-circle"></i> Nota:<br> Puedes usar la ubicación automática, pero además debes llenar los campos de dirección de entrega.</p>
                         </div>
@@ -973,7 +1043,7 @@ Especificaciones adicionales:
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle"></i> 
                 <h3>¡Formulario completado correctamente!</h3>
-                <p>Serás redirigido a WhatsApp en unos segundos con tu pedido y enlace de ubicación.</p>
+                <p>Serás redirigido a WhatsApp en unos segundos. El mensaje estará listo, solo debes hacer clic en "Enviar".</p>
             </div>
         </div>
         
@@ -1002,9 +1072,51 @@ Especificaciones adicionales:
             const locationText = document.getElementById('locationText');
             const latitudInput = document.getElementById('latitud');
             const longitudInput = document.getElementById('longitud');
+            const calleInput = document.getElementById('calle');
+            const alturaInput = document.getElementById('altura');
+            const barrioInput = document.getElementById('barrio');
+            const ciudadInput = document.getElementById('ciudad');
+            
+            if (!autoLocationBtn) return;
+            
+            // Función para geocodificación inversa (convertir coordenadas a dirección)
+            function reverseGeocode(lat, lng) {
+                return new Promise((resolve, reject) => {
+                    // Usar API de Nominatim (OpenStreetMap) - gratuita y sin API key
+                    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1&accept-language=es`;
+                    
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.address) {
+                                const address = data.address;
+                                resolve({
+                                    calle: address.road || address.street || '',
+                                    altura: address.house_number || '',
+                                    barrio: address.suburb || address.neighbourhood || address.quarter || '',
+                                    ciudad: address.city || address.town || address.village || address.municipality || '',
+                                    direccionCompleta: data.display_name || ''
+                                });
+                            } else {
+                                reject(new Error('No se pudo obtener la dirección'));
+                            }
+                        })
+                        .catch(error => {
+                            reject(error);
+                        });
+                });
+            }
             
             autoLocationBtn.addEventListener('click', function() {
-                locationText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detectando ubicación...';
+                if (locationText) {
+                    locationText.style.display = 'flex';
+                    const locationSpan = locationText.querySelector('span');
+                    const locationIcon = locationText.querySelector('i');
+                    if (locationIcon) locationIcon.className = 'fas fa-spinner fa-spin';
+                    if (locationSpan) locationSpan.textContent = 'Detectando ubicación...';
+                    locationText.style.borderLeftColor = '#3498db';
+                    locationText.style.background = 'rgba(52, 152, 219, 0.1)';
+                }
                 autoLocationBtn.disabled = true;
                 autoLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detectando...';
                 
@@ -1014,34 +1126,103 @@ Especificaciones adicionales:
                             const lat = position.coords.latitude;
                             const lng = position.coords.longitude;
                             
-                            latitudInput.value = lat.toFixed(6);
-                            longitudInput.value = lng.toFixed(6);
+                            // Actualizar coordenadas
+                            if (latitudInput) latitudInput.value = lat.toFixed(6);
+                            if (longitudInput) longitudInput.value = lng.toFixed(6);
                             
-                            locationText.innerHTML = '<i class="fas fa-check-circle"></i> Ubicación detectada correctamente';
-                            locationText.parentElement.style.borderLeftColor = '#2ecc71';
-                            locationText.parentElement.style.background = 'rgba(46, 204, 113, 0.1)';
+                            // Actualizar mensaje de estado
+                            if (locationText) {
+                                const locationSpan = locationText.querySelector('span');
+                                const locationIcon = locationText.querySelector('i');
+                                if (locationIcon) locationIcon.className = 'fas fa-spinner fa-spin';
+                                if (locationSpan) locationSpan.textContent = 'Obteniendo dirección...';
+                                locationText.style.borderLeftColor = '#3498db';
+                                locationText.style.background = 'rgba(52, 152, 219, 0.1)';
+                            }
                             
-                            autoLocationBtn.innerHTML = '<i class="fas fa-check"></i> Ubicación detectada';
-                            autoLocationBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
-                            
-                            // Mostrar mensaje de éxito
-                            setTimeout(() => {
-                                locationText.innerHTML = '<i class="fas fa-map-marker-alt"></i> Ubicación lista para el envío';
-                            }, 2000);
+                            // Obtener dirección mediante geocodificación inversa
+                            reverseGeocode(lat, lng)
+                                .then(addressData => {
+                                    // Rellenar campos de dirección
+                                    if (calleInput && addressData.calle) {
+                                        calleInput.value = addressData.calle;
+                                    }
+                                    if (alturaInput && addressData.altura) {
+                                        alturaInput.value = addressData.altura;
+                                    }
+                                    if (barrioInput && addressData.barrio) {
+                                        barrioInput.value = addressData.barrio;
+                                    }
+                                    if (ciudadInput && addressData.ciudad) {
+                                        ciudadInput.value = addressData.ciudad;
+                                    }
+                                    
+                                    // Actualizar mensaje de éxito
+                                    if (locationText) {
+                                        const locationSpan = locationText.querySelector('span');
+                                        const locationIcon = locationText.querySelector('i');
+                                        if (locationIcon) locationIcon.className = 'fas fa-check-circle';
+                                        if (locationSpan) locationSpan.textContent = 'Ubicación y dirección detectadas correctamente';
+                                        locationText.style.borderLeftColor = '#2ecc71';
+                                        locationText.style.background = 'rgba(46, 204, 113, 0.1)';
+                                        
+                                        // Mostrar mensaje de éxito final
+                                        setTimeout(() => {
+                                            if (locationIcon) locationIcon.className = 'fas fa-map-marker-alt';
+                                            if (locationSpan) locationSpan.textContent = 'Ubicación lista para el envío';
+                                        }, 2000);
+                                    }
+                                    
+                                    autoLocationBtn.innerHTML = '<i class="fas fa-check"></i> Ubicación detectada';
+                                    autoLocationBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                                    autoLocationBtn.disabled = false;
+                                })
+                                .catch(error => {
+                                    console.error('Error en geocodificación:', error);
+                                    
+                                    // Aunque falle la geocodificación, las coordenadas ya están guardadas
+                                    if (locationText) {
+                                        const locationSpan = locationText.querySelector('span');
+                                        const locationIcon = locationText.querySelector('i');
+                                        if (locationIcon) locationIcon.className = 'fas fa-exclamation-triangle';
+                                        if (locationSpan) locationSpan.textContent = 'Coordenadas detectadas, pero no se pudo obtener la dirección completa. Por favor, completa los campos manualmente.';
+                                        locationText.style.borderLeftColor = '#ffc107';
+                                        locationText.style.background = 'rgba(255, 193, 7, 0.1)';
+                                    }
+                                    
+                                    autoLocationBtn.innerHTML = '<i class="fas fa-check"></i> Coordenadas detectadas';
+                                    autoLocationBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+                                    autoLocationBtn.disabled = false;
+                                });
                         },
                         function(error) {
-                            locationText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error al obtener ubicación';
-                            locationText.parentElement.style.borderLeftColor = '#e74c3c';
-                            locationText.parentElement.style.background = 'rgba(231, 76, 60, 0.1)';
+                            if (locationText) {
+                                const locationSpan = locationText.querySelector('span');
+                                const locationIcon = locationText.querySelector('i');
+                                if (locationIcon) locationIcon.className = 'fas fa-exclamation-triangle';
+                                if (locationSpan) locationSpan.textContent = 'Error al obtener ubicación';
+                                locationText.style.borderLeftColor = '#e74c3c';
+                                locationText.style.background = 'rgba(231, 76, 60, 0.1)';
+                            }
                             
                             autoLocationBtn.disabled = false;
                             autoLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Intentar nuevamente';
+                            autoLocationBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
                         }
                     );
                 } else {
-                    locationText.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tu navegador no soporta geolocalización';
+                    if (locationText) {
+                        const locationSpan = locationText.querySelector('span');
+                        const locationIcon = locationText.querySelector('i');
+                        if (locationIcon) locationIcon.className = 'fas fa-exclamation-triangle';
+                        if (locationSpan) locationSpan.textContent = 'Tu navegador no soporta geolocalización';
+                        locationText.style.borderLeftColor = '#e74c3c';
+                        locationText.style.background = 'rgba(231, 76, 60, 0.1)';
+                        locationText.style.display = 'flex';
+                    }
                     autoLocationBtn.disabled = false;
                     autoLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Usar ubicación automática';
+                    autoLocationBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
                 }
             });
             
@@ -1078,18 +1259,46 @@ Especificaciones adicionales:
                         const phone = '543541387884';
                         let telefonoUsuario = telefono.trim().replace(/\s+/g, '').replace(/[-\s()]/g, '');
 
-                            if (telefonoUsuario.startsWith('0')) {
-                                telefonoUsuario = telefonoUsuario.substring(1);
-                            }
+                        if (telefonoUsuario.startsWith('0')) {
+                            telefonoUsuario = telefonoUsuario.substring(1);
+                        }
 
-                            telefonoUsuario = '+54' + telefonoUsuario;
+                        telefonoUsuario = '+54' + telefonoUsuario;
 
-                            const message = `*NUEVO PEDIDO AMICI*%0A%0A` +
-                                        `*Nombre:* ${nombre}%0A` +
-                                        `*Teléfono:* ${telefonoUsuario}%0A` +
-                                        `*Dirección:* ${document.getElementById('calle').value || 'No especificada'}%0A` +
-                                        `*Pedido:*%0A${pedido.replace(/\n/g, '%0A')}`;
+                        // Obtener datos de dirección
+                        const calle = document.getElementById('calle').value || '';
+                        const altura = document.getElementById('altura').value || '';
+                        const barrio = document.getElementById('barrio').value || '';
+                        const ciudad = document.getElementById('ciudad').value || '';
+                        const latitud = document.getElementById('latitud').value || '';
+                        const longitud = document.getElementById('longitud').value || '';
                         
+                        // Construir dirección completa
+                        let direccionCompleta = '';
+                        if (calle) direccionCompleta += calle;
+                        if (altura) direccionCompleta += (direccionCompleta ? ' ' : '') + altura;
+                        if (barrio) direccionCompleta += (direccionCompleta ? ', ' : '') + barrio;
+                        if (ciudad) direccionCompleta += (direccionCompleta ? ', ' : '') + ciudad;
+                        if (!direccionCompleta) direccionCompleta = 'No especificada';
+                        
+                        // Construir mensaje
+                        let message = `*NUEVO PEDIDO AMICI*%0A%0A` +
+                                    `*Nombre:* ${nombre}%0A` +
+                                    `*Teléfono:* ${telefonoUsuario}%0A` +
+                                    `*Dirección:* ${direccionCompleta}%0A`;
+                        
+                        // Agregar coordenadas si están disponibles
+                        if (latitud && longitud) {
+                            message += `*Coordenadas GPS:* ${latitud}, ${longitud}%0A`;
+                            // Agregar enlace de Google Maps
+                            const mapsLink = `https://www.google.com/maps?q=${latitud},${longitud}`;
+                            message += `*Ubicación en Google Maps:*%0A${mapsLink}%0A`;
+                        }
+                        
+                        message += `%0A*Pedido:*%0A${pedido.replace(/\n/g, '%0A')}`;
+                        
+                        // Abrir WhatsApp con el mensaje prellenado
+                        // NOTA: El usuario debe hacer clic en "Enviar" manualmente
                         window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
                         
                         // Resetear formulario
@@ -1103,9 +1312,13 @@ Especificaciones adicionales:
             // Ajuste responsivo para el botón flotante en pantallas muy pequeñas
             function adjustWhatsAppButton() {
                 const whatsappFloat = document.getElementById('whatsappFloat');
+                if (!whatsappFloat) return;
+                
                 const whatsappLink = whatsappFloat.querySelector('.whatsapp-link');
                 const whatsappNumber = whatsappFloat.querySelector('.whatsapp-number');
                 const tooltip = whatsappFloat.querySelector('.whatsapp-tooltip');
+                
+                if (!whatsappLink) return;
                 
                 if (window.innerWidth <= 359) {
                     whatsappLink.style.padding = '10px';
@@ -1113,15 +1326,16 @@ Especificaciones adicionales:
                     whatsappLink.style.width = '50px';
                     whatsappLink.style.height = '50px';
                     whatsappLink.style.justifyContent = 'center';
-                    whatsappNumber.style.display = 'none';
-                    tooltip.style.display = 'none';
+                    if (whatsappNumber) whatsappNumber.style.display = 'none';
+                    if (tooltip) tooltip.style.display = 'none';
                 } else {
                     whatsappLink.style.padding = '';
                     whatsappLink.style.borderRadius = '';
                     whatsappLink.style.width = '';
                     whatsappLink.style.height = '';
                     whatsappLink.style.justifyContent = '';
-                    whatsappNumber.style.display = '';
+                    if (whatsappNumber) whatsappNumber.style.display = '';
+                    if (tooltip) tooltip.style.display = '';
                 }
             }
             
